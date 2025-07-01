@@ -37,7 +37,7 @@ class Game extends Model
 
     public function tags()
 {
-    return $this->belongsToMany(Tag::class, 'game_tag');
+    return $this->belongsToMany(Tag::class, 'game_tags');
 }
 
 

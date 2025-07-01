@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserGameLibrary extends Model
 {
-    protected $table = 'user_game_library';
+    protected $table = 'user_game_libraries';
 
     protected $fillable = [
         'user_id',

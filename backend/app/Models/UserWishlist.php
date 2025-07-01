@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserWishlist extends Model
 {
-    protected $table = 'user_wishlist';
+    protected $table = 'user_wishlists';
 
     protected $fillable = [
         'user_id',

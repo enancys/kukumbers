@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class GameTag extends Pivot
 {
-    protected $table = 'game_tag';
+    protected $table = 'game_tags';
 
     protected $fillable = [
         'game_id',

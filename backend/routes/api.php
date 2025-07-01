@@ -31,11 +31,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('/comments', ApiCommentController::class);
 Route::apiResource('/games', ApiGameController::class);
-Route::apiResource('/game_screenshot', ApiGameScreenshootController::class);
+Route::apiResource('/game_screenshots', ApiGameScreenshootController::class);
 Route::apiResource('/game_tags', ApiGameTagController::class);
 Route::apiResource('/game_videos', ApiGameVideoController::class);
 Route::apiResource('/reviews', ApiReviewController::class);
 Route::apiResource('/tags', ApiTagController::class);
 Route::apiResource('/users', ApiUserController::class);
 Route::apiResource('/user_game_library', ApiUserGameLibraryController::class);
-Route::apiResource('/user_wishlist', ApiUserWishlistController::class);
+Route::apiResource('/user_wishlists', ApiUserWishlistController::class);
