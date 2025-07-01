@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const UserGameLibraryIndex = () => {
     const [libraries, setLibraries] = useState([]);
@@ -22,6 +23,8 @@ const UserGameLibraryIndex = () => {
     return (
         <div className="container-fluid">
             <h1 className="h3 mb-4 text-gray-800">User Game Library</h1>
+            <Link to="/admin/user_game_library/create" className="btn btn-primary mb-3">Create New Game</Link>
+
             <div className="card shadow mb-4">
                 <div className="card-body">
                     <div className="table-responsive">
