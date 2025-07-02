@@ -37,6 +37,11 @@ Route::apiResource('/users', ApiUserController::class);
 Route::apiResource('/user_game_library', ApiUserGameLibraryController::class);
 Route::apiResource('/user_wishlists', ApiUserWishlistController::class);
 
+Route::post('/games/import-steam', [ApiGameController::class, 'importFromSteam']);
+Route::middleware('auth:api')->get('/user-game-library', [ApiUserGameLibraryController::class, 'userLibrary']);
+Route::middleware('auth:api')->get('/user-wishlist', [ApiUserWishlistController::class, 'userWishlist']);
+
+
 
 Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register');
 Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('login');

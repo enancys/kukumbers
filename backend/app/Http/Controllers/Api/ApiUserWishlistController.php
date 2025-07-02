@@ -32,16 +32,16 @@ class ApiUserWishlistController extends Controller
             'game_id' => 'required|exists:games,id',
         ]);
 
-        // Cek duplikat (opsional)
         $exists = UserWishlist::where('user_id', $validated['user_id'])
-                              ->where('game_id', $validated['game_id'])
-                              ->exists();
+            ->where('game_id', $validated['game_id'])
+            ->exists();
 
         if ($exists) {
+            // return sukses false tapi tidak dianggap error HTTP
             return response()->json([
                 'success' => false,
                 'message' => 'Game sudah ada di wishlist',
-            ], 409);
+            ], 200); // status OK agar tidak error di frontend
         }
 
         $wishlist = UserWishlist::create($validated);
@@ -102,4 +102,20 @@ class ApiUserWishlistController extends Controller
             'data' => $wishlist
         ], 200);
     }
+
+    public function userWishlist(Request $request)
+    {
+        $userId = $request->user()->id;
+
+        $wishlists = UserWishlist::with('game')
+            ->where('user_id', $userId)
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Wishlist user berhasil dimuat',
+            'data' => $wishlists
+        ]);
+    }
+
 }

@@ -11,7 +11,7 @@ class ApiReviewController extends Controller
     /**
      * Display a listing of the resource.
      */
-       public function index()
+    public function index()
     {
         $reviews = Review::with(['user', 'game'])->get();
 
@@ -28,9 +28,9 @@ class ApiReviewController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id'     => 'required|exists:users,id',
-            'game_id'     => 'required|exists:games,id',
-            'rating'      => 'required|integer|min:1|max:10',
+            'user_id' => 'required|exists:users,id',
+            'game_id' => 'required|exists:games,id',
+            'rating' => 'required|integer|min:1|max:10',
             'review_text' => 'required|string',
             'is_approved' => 'boolean',
         ]);
@@ -66,9 +66,9 @@ class ApiReviewController extends Controller
         $review = Review::findOrFail($id);
 
         $validated = $request->validate([
-            'user_id'     => 'required|exists:users,id',
-            'game_id'     => 'required|exists:games,id',
-            'rating'      => 'required|integer|min:1|max:10',
+            'user_id' => 'required|exists:users,id',
+            'game_id' => 'required|exists:games,id',
+            'rating' => 'required|integer|min:1|max:10',
             'review_text' => 'required|string',
             'is_approved' => 'boolean',
         ]);

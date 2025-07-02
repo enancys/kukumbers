@@ -37,4 +37,11 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    // App\Models\User.php
+    public function gameLibraries()
+    {
+        return $this->hasMany(UserGameLibrary::class);
+    }
+
 }

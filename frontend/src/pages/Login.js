@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ pakai useNavigate
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Login() {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [validation, setValidation] = useState([]);
-    const navigate = useNavigate(); // ✅ gunakan navigate
+    const navigate = useNavigate();
 
     const loginHandler = async (e) => {
         e.preventDefault();
@@ -16,21 +15,25 @@ function Login() {
         formData.append('email', email);
         formData.append('password', password);
 
-        await axios.post('http://localhost:8000/api/login', formData)
-            .then((response) => {
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('user', JSON.stringify(response.data.user)); // optional: simpan data user juga
+        try {
+            const response = await axios.post('http://localhost:8000/api/login', formData);
 
-                if (response.data.user.role === 'admin') {
-                    navigate('/admin');
-                } else {
-                    navigate('/dashboard');
-                }
-            })
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('auth_user', JSON.stringify(response.data.user)); // ✅ konsisten dengan useAuth
 
-            .catch((error) => {
+            if (response.data.user.role === 'admin') {
+                navigate('/admin');
+            } else {
+                navigate('/dashboard');
+            }
+
+        } catch (error) {
+            if (error.response && error.response.data) {
                 setValidation(error.response.data);
-            });
+            } else {
+                setValidation({ message: "Terjadi kesalahan tak terduga." });
+            }
+        }
     };
 
     return (
@@ -49,14 +52,28 @@ function Login() {
                             <form onSubmit={loginHandler}>
                                 <div className="mb-3">
                                     <label className="form-label">ALAMAT EMAIL</label>
-                                    <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Masukkan Alamat Email" />
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="Masukkan Alamat Email"
+                                        required
+                                    />
                                 </div>
                                 {validation.email && (
                                     <div className="alert alert-danger">{validation.email[0]}</div>
                                 )}
                                 <div className="mb-3">
                                     <label className="form-label">PASSWORD</label>
-                                    <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Masukkan Password" />
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        placeholder="Masukkan Password"
+                                        required
+                                    />
                                 </div>
                                 {validation.password && (
                                     <div className="alert alert-danger">{validation.password[0]}</div>

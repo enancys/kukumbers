@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Game extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'steam_id',
         'title',
@@ -21,6 +22,7 @@ class Game extends Model
         'steam_app_id',
         'metacritic_score',
         'trailer_url',
+        'screenshots', // ✅ tambahkan ini
         'is_featured',
     ];
 
@@ -28,17 +30,11 @@ class Game extends Model
         'release_date' => 'date',
         'average_rating' => 'decimal:2',
         'is_featured' => 'boolean',
+        'screenshots' => 'array', // ✅ supaya otomatis decode ke array
     ];
 
-    public function screenshots()
-    {
-        return $this->hasMany(GameScreenshoot::class);
-    }
-
     public function tags()
-{
-    return $this->belongsToMany(Tag::class, 'game_tags');
-}
-
-
+    {
+        return $this->belongsToMany(Tag::class, 'game_tags');
+    }
 }

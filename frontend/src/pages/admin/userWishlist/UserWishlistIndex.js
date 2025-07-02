@@ -37,7 +37,7 @@ const UserWishlistIndex = () => {
     return (
         <div className="container-fluid">
             <h1 className="h3 mb-3 text-gray-800">User Wishlist</h1>
-            <Link to="/admin/user-wishlist/create" className="btn btn-primary mb-3">Tambah Wishlist</Link>
+            <Link to="/admin/user_wishlists/create" className="btn btn-primary mb-3">Tambah Wishlist</Link>
 
             <div className="card shadow mb-4">
                 <div className="card-body">

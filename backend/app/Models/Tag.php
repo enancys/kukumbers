@@ -15,6 +15,6 @@ class Tag extends Model
 
     public function games()
     {
-        return $this->belongsToMany(Game::class, 'game_tag')->withTimestamps();
+        return $this->belongsToMany(Game::class, 'game_tags')->withTimestamps();
     }
 }

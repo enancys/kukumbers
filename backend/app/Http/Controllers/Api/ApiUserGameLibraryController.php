@@ -28,12 +28,12 @@ class ApiUserGameLibraryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id'          => 'required|exists:users,id',
-            'game_id'          => 'required|exists:games,id',
-            'status'           => 'required|in:want_to_play,playing,completed,dropped',
-            'added_at'         => 'nullable|date',
-            'completed_at'     => 'nullable|date',
-            'play_time_hours'  => 'required|integer|min:0',
+            'user_id' => 'required|exists:users,id',
+            'game_id' => 'required|exists:games,id',
+            'status' => 'required|in:want_to_play,playing,completed,dropped',
+            'added_at' => 'nullable|date',
+            'completed_at' => 'nullable|date',
+            'play_time_hours' => 'required|integer|min:0',
         ]);
 
         $library = UserGameLibrary::create($validated);
@@ -67,12 +67,12 @@ class ApiUserGameLibraryController extends Controller
         $library = UserGameLibrary::findOrFail($id);
 
         $validated = $request->validate([
-            'user_id'          => 'sometimes|required|exists:users,id',
-            'game_id'          => 'sometimes|required|exists:games,id',
-            'status'           => 'sometimes|required|in:want_to_play,playing,completed,dropped',
-            'added_at'         => 'nullable|date',
-            'completed_at'     => 'nullable|date',
-            'play_time_hours'  => 'sometimes|required|integer|min:0',
+            'user_id' => 'sometimes|required|exists:users,id',
+            'game_id' => 'sometimes|required|exists:games,id',
+            'status' => 'sometimes|required|in:want_to_play,playing,completed,dropped',
+            'added_at' => 'nullable|date',
+            'completed_at' => 'nullable|date',
+            'play_time_hours' => 'sometimes|required|integer|min:0',
         ]);
 
         $library->update($validated);
@@ -98,4 +98,18 @@ class ApiUserGameLibraryController extends Controller
             'data' => $library
         ], 200);
     }
+
+    public function userLibrary(Request $request)
+    {
+        $user = $request->user();
+
+        $libraries = $user->gameLibraries()->with('game')->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Library user berhasil dimuat',
+            'data' => $libraries
+        ]);
+    }
+
 }
